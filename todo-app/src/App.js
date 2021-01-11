@@ -23,7 +23,7 @@ function todoReducer(todos, action) {
       return todos.fliter((todo) => todo.id !== action.id);
     case 'TOGGLE':
       return todos.map((todo) =>
-        todo.id === action.id ? { ...todo, checkd: !todo.checkd } : todo,
+        todo.id === action.id ? { ...todo, checkd: !todo.checked } : todo,
       );
     default:
       return todos;
