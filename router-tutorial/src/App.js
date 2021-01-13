@@ -1,8 +1,9 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import About from './About';
+import HistorySample from './HistorySample';
 import Home from './Home';
-import Profile from './Profile';
+import Profiles from './Profiles';
 
 const App = () => {
   return (
@@ -19,18 +20,30 @@ const App = () => {
       </ul>
       <ul>
         <li>
-          <Link to="/profile/veloport">veloport</Link>
+          <Link to="/profiles">프로필</Link>
         </li>
       </ul>
       <ul>
         <li>
-          <Link to="/profile/gildong">gildong</Link>
+          <Link to="/history">history 예제</Link>
         </li>
       </ul>
       <hr />
-      <Route path="/" component={Home} exact={true}></Route>
-      <Route path={['/about', '/info']} component={About}></Route>
-      <Route path="/profile/:username" component={Profile}></Route>
+      <Switch>
+        <Route path="/" component={Home} exact={true}></Route>
+        <Route path={['/about', '/info']} component={About}></Route>
+        <Route path="/profiles" component={Profiles}></Route>
+        <Route path="/history" component={HistorySample}></Route>
+        <Route
+          path="/new"
+          render={({ location }) => (
+            <div>
+              <h2>이 페이지는 존재하지 않습니다:</h2>
+              <p>{location.pathname}</p>
+            </div>
+          )}
+        ></Route>
+      </Switch>
     </div>
   );
 };

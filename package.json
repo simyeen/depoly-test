@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/simyeen/React_Master.git",
   "author": "simyeen <simyeen@naver.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "qs": "^6.9.4"
+  }
 }
