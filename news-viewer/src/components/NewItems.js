@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const NewItemsBlock = () => {
-  return <div></div>;
+const NewItems = () => {
+  return <NewItemBlock></NewItemBlock>;
 };
 
-export default NewItemsBlock;
+export default NewItems;
 
-const NewItemsBlock = styled.div`
+const NewItemBlock = styled.div`
   display: flex;
 `;
