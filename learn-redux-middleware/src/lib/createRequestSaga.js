@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import { startLoading, finishLoading } from '../modules/loading';
 
 export default function createRequestSaga(type, request) {
-  const SUEECSS = `${type}_SUEECSS`;
+  const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
 
   return function* (action) {
@@ -10,7 +10,7 @@ export default function createRequestSaga(type, request) {
     try {
       const response = yield call(request, action.payload);
       yield put({
-        type: SUEECSS,
+        type: SUCCESS,
         payload: response.data,
       });
     } catch (e) {
