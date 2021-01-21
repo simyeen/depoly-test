@@ -21,10 +21,10 @@ export const getPost = (id) => async (dispatch) => {
 };
 
 export const getUsers = () => async (dispatch) => {
-  dispatchEvent({ type: GET_USERS });
+  dispatch({ type: GET_USERS });
   try {
     const response = await api.getUsers();
-    dispatchEvent({ type: GET_USERS_SUCCESS, payload: response.data });
+    dispatch({ type: GET_USERS_SUCCESS, payload: response.data });
   } catch (e) {
     dispatch({ type: GET_USERS_FAILURE, payload: e, error: true });
     throw e;
