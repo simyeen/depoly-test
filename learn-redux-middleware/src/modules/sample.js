@@ -1,12 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as api from '../lib/api';
-import {
-  startLoading,
-  finishLoading,
-  startloading,
-  finishloading,
-} from './loading';
+import { startLoading, finishLoading } from './loading';
 
 const GET_POST = 'sample/GET_POST';
 const GET_POST_SUCCESS = 'sample/GET_POST_SUCCESS';
@@ -20,7 +15,7 @@ export const getPost = createAction(GET_POST, (id) => id);
 export const getUsers = createAction(GET_USERS);
 
 function* getPostSaga(action) {
-  yield put(startloading(GET_POST));
+  yield put(startLoading(GET_POST));
   try {
     const post = yield call(api.getPost, action.payload);
     yield put({
@@ -34,11 +29,11 @@ function* getPostSaga(action) {
       error: true,
     });
   }
-  yield put(finishloading(GET_POST));
+  yield put(finishLoading(GET_POST));
 }
 
 function* getUsersSaga() {
-  yield put(startloading(GET_USERS));
+  yield put(startLoading(GET_USERS));
   try {
     const users = yield call(api.getUsers);
     yield put({
@@ -48,11 +43,11 @@ function* getUsersSaga() {
   } catch (e) {
     yield put({
       type: GET_USERS_FAILURE,
-      error: true,
       payload: e,
+      error: true,
     });
   }
-  yield put(finishloading(GET_POST));
+  yield put(finishLoading(GET_USERS));
 }
 
 export function* sampleSaga() {
