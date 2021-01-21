@@ -7,6 +7,7 @@ export const startloading = createAction(
   START_LOADING,
   (requestType) => requestType
 );
+// export const startloading = requestType => {type : START_LOADING, requestType : requestType}
 
 export const finishloading = createAction(
   FINISH_LOADING,
@@ -23,7 +24,7 @@ const loading = handleActions(
     }),
     [FINISH_LOADING]: (state, action) => ({
       ...state,
-      [action.payload]: true,
+      [action.payload]: false,
     }),
   },
   initialState
