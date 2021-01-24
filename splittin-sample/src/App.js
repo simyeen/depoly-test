@@ -7,6 +7,7 @@ const App = () => {
         <img src={logo} className="APP-logo" alt="logo" />
         <p onClick={this.handleClick}> Hello React! 빵 들고가기</p>
         {SplitMe && <SplitMe />}
+        {SplitMe && <SplitMe />}
       </header>
     </div>
   );
