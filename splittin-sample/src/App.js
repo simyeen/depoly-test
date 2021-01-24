@@ -13,7 +13,9 @@ const App = () => {
       <header className="APP-header">
         <img src={logo} className="APP-logo" alt="logo" />
         <p onClick={onClick}> Hello React! 빵 들고가기</p>
-        {visible && <SplitMe />}
+        <Suspense fallback={<div>loading...</div>}>
+          {visible && <SplitMe />}
+        </Suspense>
       </header>
     </div>
   );
