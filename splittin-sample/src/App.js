@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState } from 'react';
 import loadable from '@loadable/component';
 import logo from './logo.svg';
 import './App.css';
@@ -11,11 +11,16 @@ const App = () => {
   const onClick = () => {
     setVisible(true);
   };
+  const onMouseOver = () => {
+    SplitMe.preload();
+  };
   return (
     <div className="APP">
       <header className="APP-header">
         <img src={logo} className="APP-logo" alt="logo" />
-        <p onClick={onClick}> Hello React! 빵 들고가기</p>
+        <p onClick={onClick} onMouseOver={onMouseOver}>
+          Hello React! 빵 들고가기
+        </p>
         {visible && <SplitMe />}
       </header>
     </div>
