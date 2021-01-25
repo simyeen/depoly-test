@@ -12,7 +12,7 @@ const App = () => {
       <hr />
       <Route path="/red" component={RedPage} />
       <Route path="/blue" component={BluePage} />
-      <Route path="/user" component={UsersPage} />
+      <Route path="/users" component={UsersPage} />
     </div>
   );
 };

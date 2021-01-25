@@ -1,8 +1,8 @@
 import React from 'react';
-import UesrsContainer from '../containers/UesrsContainer';
+import UsersContainer from '../containers/UsersContainer';
 
 const UsersPage = () => {
-  return <UesrsContainer />;
+  return <UsersContainer />;
 };
 
 export default UsersPage;

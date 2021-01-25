@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Users = ({ users }) => {
-  if (users) return null;
+  if (!users) return null;
 
   return (
     <div>

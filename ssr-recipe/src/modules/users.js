@@ -43,18 +43,21 @@ function users(state = initialState, action) {
   switch (action.type) {
     case GET_USERS_PENDING:
       return { ...state, loading: { ...state.loading, users: true } };
+
     case GET_USERS_SUCCESS:
       return {
         ...state,
         loading: { ...state.loading, users: false },
         users: action.payload.data,
       };
+
     case GET_USERS_FAILURE:
       return {
         ...state,
         loading: { ...state.loading, users: false },
         error: { ...state.error, users: action.payload },
       };
+
     default:
       return state;
   }

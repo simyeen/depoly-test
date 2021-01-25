@@ -3,7 +3,7 @@ import Users from '../components/Users';
 import { connect } from 'react-redux';
 import { getUsers } from '../modules/users';
 
-const UesrsContainer = ({ users, getUsers }) => {
+const UsersContainer = ({ users, getUsers }) => {
   useEffect(() => {
     if (users) return;
     getUsers();
@@ -19,4 +19,4 @@ export default connect(
   {
     getUsers,
   }
-)(UesrsContainer);
+)(UsersContainer);
