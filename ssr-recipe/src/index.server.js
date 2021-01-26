@@ -5,6 +5,11 @@ import { StaticRouter } from 'react-router-dom';
 import App from './App';
 import path from 'path';
 import fs from 'fs';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import rootReducer from './modules';
+import PreloadContext from './lib/PreloadContext';
 
 const manifest = JSON.parse(
   fs.readFileSync(path.resolve('./build/asset-manifest.json'), 'utf8')
@@ -15,7 +20,7 @@ const chunks = Object.keys(manifest.files)
   .map((key) => `<script src = "${manifest.files[key]}"> </script>`)
   .join('');
 
-function createPage(root) {
+function createPage(root, stateScript) {
   return ` <!DOCTYPE html>
     <html lang ="en">
     <head>
@@ -34,6 +39,7 @@ function createPage(root) {
        <div id ="root">
         ${root}
        </div>
+       ${stateScript}
        <script src="${manifest.files['runtime~main.js']}"> </script >
        ${chunks} 
         <script src="${manifest.files['main.js']}"> </script >
@@ -44,15 +50,37 @@ function createPage(root) {
 
 const app = express();
 
-const serverRender = (req, res, next) => {
+const serverRender = async (req, res, next) => {
   const context = {};
+  const store = createStore(rootReducer, applyMiddleware(thunk));
+
+  const preloadContext = {
+    done: false,
+    promises: [],
+  };
+
   const jsx = (
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>
+    <PreloadContext.Provider value={preloadContext}>
+      <Provider store={store}>
+        <StaticRouter location={req.url} context={context}>
+          <App />
+        </StaticRouter>
+      </Provider>
+    </PreloadContext.Provider>
   );
-  const root = ReactDOMServer.renderToString(jsx); // 렌더링을 하고,
-  res.send(createPage(root)); // Client에게 결과물을 응답합니다.
+
+  ReactDOMServer.renderToStaticMarkup(jsx);
+  try {
+    await Promise.all(preloadContext.promises);
+  } catch (e) {
+    return res.status(500);
+  }
+
+  preloadContext.done = true;
+  const root = ReactDOMServer.renderToString(jsx); // 렌더링을 한다.
+  const stateSting = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
+  const stateScript = `<script><__PRELOADED_STATE__= ${stateSting}/script>`;
+  res.send(createPage(root, stateScript)); // Client에게 결과물을 응답합니다.
 };
 
 const serve = express.static(path.resolve('./build'), {
