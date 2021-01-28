@@ -6,7 +6,7 @@ const api = require('./api');
 const app = new Koa();
 const router = new Router();
 
-router.use('/api', api.routers());
+router.use('/api', api.routes());
 
 app.use(router.routes()).use(router.allowedMethods());
 
