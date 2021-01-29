@@ -9,12 +9,12 @@ posts.get('/:id', postsCtrl.checkObjectId, postsCtrl.read);
 posts.delete('/:id', postsCtrl.checkObjectId, postsCtrl.remove);
 posts.patch('/:id', postsCtrl.checkObjectId, postsCtrl.update);
 
-const post = new Router(); // /api/posts/:id
+// const post = new Router(); // /api/posts/:id
 
-post.get('/', postsCtrl.read);
-post.delete('/', postsCtrl.remove);
-post.patch('/', postsCtrl.update);
+// post.get('/', postsCtrl.read);
+// post.delete('/', postsCtrl.remove);
+// post.patch('/', postsCtrl.update);
 
-posts.use('/:id', postsCtrl.checkObjectId, post.routes());
+// posts.use('/:id', postsCtrl.checkObjectId, post.routes());
 
 export default posts;

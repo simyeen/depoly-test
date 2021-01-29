@@ -6,6 +6,7 @@ const { ObjectId } = mongoose.Types;
 
 export const checkObjectId = (ctx, next) => {
   const { id } = ctx.params;
+  //id가 존재하는지 validation검사.
   if (!ObjectId.isValid(id)) {
     ctx.status = 400;
     return;
@@ -14,6 +15,7 @@ export const checkObjectId = (ctx, next) => {
 };
 
 export const write = async (ctx) => {
+  //객체가 다음 필드를 가지고 있음을 검증한다.
   const schema = Joi.object().keys({
     title: Joi.string().required(),
     body: Joi.string().required(),
@@ -74,6 +76,19 @@ export const remove = async (ctx) => {
 
 export const update = async (ctx) => {
   const { id } = ctx.params;
+
+  const schema = Joi.object().keys({
+    title: Joi.string(),
+    body: Joi.string(),
+    tags: Joi.array().items(Joi.string()),
+  });
+
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
 
   try {
     const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
