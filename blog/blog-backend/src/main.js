@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
@@ -16,8 +15,6 @@ mongoose
   .catch((e) => {
     console.log(e);
   });
-
-const api = require('./api');
 
 const app = new Koa();
 const router = new Router();
