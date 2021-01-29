@@ -14,7 +14,12 @@ UserSchema.methods.setPassword = async function (password) {
 
 UserSchema.methods.checkPassword = async function (password) {
   const result = await bcrypt.compare(password, this.hashedPassword);
-  return result;
+  return result; //true, false
 };
 
-export const User = mongoose.model('User', UserSchema);
+UserSchema.statics.findByUsername = function (username) {
+  return this.findOne({ username });
+};
+
+const User = mongoose.model('User', UserSchema);
+export default User;
