@@ -1,9 +1,11 @@
 require('dotenv').config();
+
 const Koa = require('koa');
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
+const mongoose = require('mongoose');
 
-const { PORT } = process.env;
+const { PORT, MONGO_URL } = process.env;
 
 const api = require('./api');
 
@@ -13,11 +15,8 @@ const router = new Router();
 router.use('/api', api.routes());
 
 app.use(bodyParser());
-app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(4000, () => {
-  console.log('Listening to port 4000');
-});
+app.use(router.routes()).use(router.allowedMethods());
 
 const port = PORT || 4000;
 app.listen(port, () => {

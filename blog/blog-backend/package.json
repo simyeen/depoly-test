@@ -4,12 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "eslint-config-prettier": "^7.2.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
-    "mongoose": "^5.11.13"
+    "mongoose": "^5.11.14"
   },
   "devDependencies": {
     "eslint": "^7.18.0",
