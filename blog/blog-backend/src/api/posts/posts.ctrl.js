@@ -1,13 +1,35 @@
 import Post from '../../module/post';
 import mongoose from 'mongoose';
+import Joi from '@hapi/joi';
+
+const { ObjectId } = mongoose.Types;
+
+export const checkObjectId = (ctx, next) => {
+  const { id } = ctx.params;
+  if (!ObjectId.isValid(id)) {
+    ctx.status = 400;
+    return;
+  }
+  return next();
+};
 
 export const write = async (ctx) => {
-  const { title, body, tags } = ctx.request.body;
-  const post = new Post({
-    title,
-    body,
-    tags,
+  const schema = Joi.object().keys({
+    title: Joi.string().required(),
+    body: Joi.string().required(),
+    tags: Joi.array().items(Joi.string()).required(),
   });
+
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
+
+  const { title, body, tags } = ctx.request.bodys;
+  const post = new Post({ title, body, tags });
+
   try {
     await post.save();
     ctx.body = post;
@@ -69,4 +91,4 @@ export const update = async (ctx) => {
 };
 
 //netstat -ano
-//taskkill /pid 29740 /f
+//taskkill /pid 31372 /f
