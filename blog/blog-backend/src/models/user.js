@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const UserSchema = new Schema({
   //Schema(model) => UserSchema(instance)
@@ -21,6 +22,20 @@ UserSchema.methods.serialize = function () {
   const data = this.toJSON(); //응답할 데이터에서 hashedPassword필드 제거.
   delete data.hashedPassword;
   return data;
+};
+
+UserSchema.methods.generateToken = function () {
+  const token = jwt.sign(
+    {
+      _id: this.id,
+      username: this.username,
+    },
+
+    process.env.JWT_SECRET,
+
+    { expireIn: '7d' },
+  );
+  return token;
 };
 
 UserSchema.statics.findByUsername = function (username) {
