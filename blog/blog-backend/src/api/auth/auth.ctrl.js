@@ -79,6 +79,7 @@ export const login = async (ctx) => {
 export const check = async (ctx) => {
   const { user } = ctx.state;
   if (!user) {
+    console.log('check fail');
     ctx.status = 401;
     return;
   }
