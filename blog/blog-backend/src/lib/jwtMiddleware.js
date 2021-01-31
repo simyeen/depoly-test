@@ -11,7 +11,7 @@ const jwtMiddleware = async (ctx, next) => {
       username: decoded.username,
     };
 
-    const now = Math.floor(Data.now() / 1000);
+    const now = Math.floor(Date.now() / 1000);
     if (decoded.exp - now < 60 * 60 * 24 * 3.5) {
       const user = await User.findById(decoded._id);
       const token = user.generateToken();
