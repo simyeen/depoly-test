@@ -1,0 +1,25 @@
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+
+const StlyedButton = styled.button`
+  border: noen;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem, 1rem;
+  color: white;
+  outline: none;
+  cursor: pointer;
+
+  background: ${palette.gray[8]};
+  &:hover {
+    background: ${palette.gray[6]};
+  }
+`;
+
+const Button = (props) => {
+  return <StlyedButton {...props} />;
+};
+
+export default Button;
