@@ -5,7 +5,7 @@ import { changeField, initializeForm } from '../../modules/auth';
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth }) => ({ form: auth.form }));
+  const { form } = useSelector(({ auth }) => ({ form: auth.register }));
 
   const onChange = (e) => {
     const { name, value } = e.target;
