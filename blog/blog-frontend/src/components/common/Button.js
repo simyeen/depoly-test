@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { withRouter } from 'react-router-dom';
 
 const StlyedButton = styled.button`
   border: none;
@@ -36,6 +37,17 @@ const StlyedButton = styled.button`
     `}
 `;
 
-const Button = (props) => <StlyedButton {...props} />;
+const Button = ({ to, history, ...rest }) => {
+  const onClick = (e) => {
+    if (to) {
+      history.push(to);
+    }
+    if (rest.onClick) {
+      rest.onClick(e);
+    }
+  };
 
-export default Button;
+  return <StlyedButton {...rest} onClick={onClick} />;
+};
+
+export default withRouter(Button);
