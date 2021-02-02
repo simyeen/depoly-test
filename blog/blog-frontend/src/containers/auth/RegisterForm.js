@@ -75,9 +75,12 @@ const RegisterForm = ({ history }) => {
 
   useEffect(() => {
     if (user) {
-      console.log('check API 성공');
-      console.log(user);
       history.push('/');
+      try {
+        localStorage.setItem('user', JSON.stringify(user));
+      } catch (e) {
+        console.log('localStorage is not working');
+      }
     }
   }, [history, user]);
 
