@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-const buttonStyle = css`
+const StlyedButton = styled.button`
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -37,20 +37,17 @@ const buttonStyle = css`
     `}
 `;
 
-const StyledButton = styled.button`
-  ${buttonStyle}
-`;
+const Button = ({ to, history, ...rest }) => {
+  const onClick = (e) => {
+    if (to) {
+      history.push(to);
+    }
+    if (rest.onClick) {
+      rest.onClick(e);
+    }
+  };
 
-const StyledLink = styled(Link)`
-  ${buttonStyle}
-`;
-
-const Button = (props) => {
-  return props.to ? ( //to 를 가지면 css를 가지는 Link component로 나온다.
-    <StyledLink {...props} cyan={props.cyan ? 1 : 0} /> // 임의의 props
-  ) : (
-    <StyledButton {...props} />
-  );
+  return <StlyedButton {...rest} onClick={onClick} />;
 };
 
-export default Button;
+export default withRouter(Button);
