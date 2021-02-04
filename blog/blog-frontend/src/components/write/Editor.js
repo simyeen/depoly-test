@@ -32,7 +32,7 @@ const QuillWrapper = styled.div`
   }
 `;
 
-const Editor = () => {
+const Editor = ({ onChageField, title, body }) => {
   const quillElement = useRef(null); // Quill을 이용한 DivElement를 성정한다.
   const quillInstance = useRef(null); // Quill을 이용한 인스턴스를 설정.
 
