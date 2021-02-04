@@ -42,7 +42,7 @@ const Header = ({ user, onLogout }) => {
       {console.log(user)}
       <HeaderBlock>
         <Wrapper>
-          <div className="logo">REACTERS</div>
+          <div className="logo">MOAT</div>
           <div className="right">
             {user ? (
               <div className="right">
