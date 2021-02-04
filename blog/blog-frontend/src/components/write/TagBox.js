@@ -122,7 +122,7 @@ const TagBox = () => {
         />
         <button type="submit">추가</button>
       </TagForm>
-      <TagList localTags={localTags} onRemove={onRemove} />
+      <TagList tags={localTags} onRemove={onRemove} />
     </TagBoxBlock>
   );
 };
