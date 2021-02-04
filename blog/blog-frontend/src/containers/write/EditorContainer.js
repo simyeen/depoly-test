@@ -12,14 +12,14 @@ const EditorContainer = () => {
 
   const onChangeField = useCallback(
     (payload) => dispatch(changeField(payload)),
-    [],
+    [dispatch],
   );
 
   useEffect(() => {
     return () => dispatch(initialize());
   }, [dispatch]);
 
-  return <Editor onChangeField={changeField} title={title} body={body} />;
+  return <Editor onChangeField={onChangeField} title={title} body={body} />;
 };
 
 export default EditorContainer;
