@@ -60,7 +60,7 @@ const TagListBlock = styled.div`
   margin-top: 0.5rem;
 `;
 
-const TagBox = () => {
+const TagBox = ({ tags, onChangeTags }) => {
   const [input, setInput] = useState('');
   const [localTags, setLocalTags] = useState([]);
 
@@ -68,16 +68,20 @@ const TagBox = () => {
     (tag) => {
       if (!tag) return;
       if (localTags.includes(tag)) return;
-      setLocalTags([...localTags, tag]);
+      const nextTags = [...localTags, tag];
+      setLocalTags(nextTags); //렌더링을 위함.
+      onChangeTags(nextTags); //스토어 업데이를 위함.
     },
-    [localTags],
+    [localTags, onChangeTags],
   );
 
   const onRemove = useCallback(
     (tag) => {
-      setLocalTags(localTags.filter((t) => t !== tag));
+      const nextTags = localTags.filter((t) => t !== tag);
+      setLocalTags(nextTags);
+      onChangeTags(nextTags);
     },
-    [localTags],
+    [localTags, onChangeTags],
   );
 
   const onChange = useCallback((e) => {
@@ -92,6 +96,10 @@ const TagBox = () => {
     },
     [input, insertTag],
   );
+
+  useEffect(() => {
+    setLocalTags(tags);
+  }, [tags]);
 
   const TagList = React.memo(({ tags, onRemove }) => (
     <TagListBlock>
